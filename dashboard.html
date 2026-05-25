@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Command <Center></Center></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page">
+
+<div class="dashboard-shell">
+
+<aside class="sidebar">
+<div class="sidebar-brand">
+<span class="brand-icon">✦</span>
+<span>The Aurelius Private Transport</span>
+</div>
+<nav class="sidebar-nav">
+<a href="#" class="nav-item active">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                   Overview Dispatch
+</a>
+<a href="#" class="nav-item">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                   Bookings and Vehicles
+</a>
+<a href="#" class="nav-item">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                   Drivers and Fleet
+</a>
+</nav>
+<button class="sidebar-logout" onclick="logout()">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+               Logout
+</button>
+</aside>
+
+<main class="main-content">
+<header class="dash-header">
+<div>
+<h1>Booking Command Center </h1>
+<p class="dash-sub">Manage and Track your Clients Trip</p>
+</div>
+<button class="add-btn" onclick="toggleForm()">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                   Add Lead
+</button>
+</header>
+
+<div class="stats-row">
+<div class="stat-card"><span class="stat-num" id="statTotal">0</span><span class="stat-label">Total Leads</span></div>
+<div class="stat-card"><span class="stat-num" id="statNew">0</span><span class="stat-label">New</span></div>
+<div class="stat-card"><span class="stat-num" id="statContacted">0</span><span class="stat-label">Contacted</span></div>
+<div class="stat-card"><span class="stat-num" id="statConverted">0</span><span class="stat-label">Converted</span></div>
+</div>
+
+<div class="form-panel" id="formPanel" style="display:none;">
+<h3>New Lead</h3>
+<form id="customerForm">
+<div class="form-grid">
+<div class="input-group"><label>Full Name *</label><input type="text" name="name" placeholder="John Smith" required></div>
+<div class="input-group"><label>Email</label><input type="email" name="email" placeholder="john@example.com"></div>
+<div class="input-group"><label>Source *</label>
+<select name="source" required>
+<option value="">Select source…</option>
+<option>Website Form</option><option>Referral</option>
+<option>Social Media</option><option>Cold Outreach</option>
+<option>Event</option><option>Other</option>
+</select>
+</div>
+<div class="input-group"><label>Status *</label>
+<select name="status" required>
+<option value="">Select status…</option>
+<option>New</option><option>Contacted</option><option>Converted</option>
+</select>
+</div>
+<div class="input-group full-width"><label>Notes</label><textarea name="notes" placeholder="Add any relevant notes…"></textarea></div>
+</div>
+<div class="form-actions">
+<button type="submit" class="login-btn small-btn"><span>Save Lead</span></button>
+<button type="button" class="cancel-btn" onclick="toggleForm()">Cancel</button>
+</div>
+</form>
+</div>
+
+<div class="table-wrapper">
+<div class="table-header">
+<span class="table-title">All Leads</span>
+<input type="text" id="searchInput" class="search-input" placeholder="Search leads…" oninput="filterLeads()">
+</div>
+<table class="dashboard-table">
+<thead>
+<tr><th>Name</th><th>Email</th><th>Source</th><th>Status</th><th>Notes</th><th>Actions</th></tr>
+</thead>
+<tbody id="customerTable">
+<tr class="empty-row" id="emptyRow">
+<td colspan="6">
+<div class="empty-state">
+<span>✦</span>
+<p>No leads yet. Click <strong>Add Lead</strong> to get started.</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+</div>
+
+<script src="script.js"></script>
+<script>
+       function toggleForm() {
+           const panel = document.getElementById('formPanel');
+           panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+       }
+       function logout() {
+           if (confirm('Log out of CRM?')) window.location.href = 'index.html';
+       }
+       function filterLeads() {
+           const q = document.getElementById('searchInput').value.toLowerCase();
+           document.querySelectorAll('#customerTable tr:not(.empty-row)').forEach(r => {
+               r.style.display = r.innerText.toLowerCase().includes(q) ? '' : 'none';
+           });
+       }
+</script>
+</body>
+</html>
+

@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Sign in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+
+<canvas id="bgCanvas"></canvas>
+
+<div class="login-wrapper">
+<div class="Login-form glass-card" tabindex="0">
+<div class="brand-mark">✦</div>
+<h2>Staff Sign in</h2>
+<p class="tagline">The Matthew Jeftha Holdings.Co</p>
+<form id="loginForm">
+<div class="input-group">
+<input type="text" name="username" id="username" placeholder="Username" required autocomplete="off">
+</div>
+<div class="input-group">
+<input type="password" name="password" id="password" placeholder="Password" required>
+</div>
+<button type="submit" class="login-btn">
+<span>Login</span>
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+</form>
+<p class="hint">Use <strong>Work ID</strong> / <strong>Work Code</strong></p>
+</div>
+</div>
+
+<script src="script.js"></script>
+<script>
+       const canvas = document.getElementById('bgCanvas');
+       const ctx = canvas.getContext('2d');
+
+       function resize() {
+           canvas.width = window.innerWidth;
+           canvas.height = window.innerHeight;
+           drawPattern();
+       }
+
+       function drawPattern() {
+           ctx.clearRect(0, 0, canvas.width, canvas.height);
+           const gold = 'rgba(212, 175, 55, 0.12)';
+           const goldBright = 'rgba(212, 175, 55, 0.22)';
+
+           ctx.strokeStyle = gold;
+           ctx.lineWidth = 0.5;
+           const spacing = 48;
+           for (let x = 0; x < canvas.width; x += spacing) {
+               ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+           }
+           for (let y = 0; y < canvas.height; y += spacing) {
+               ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+           }
+
+           ctx.strokeStyle = goldBright;
+           ctx.lineWidth = 0.8;
+           for (let x = 0; x < canvas.width; x += spacing * 3) {
+               for (let y = 0; y < canvas.height; y += spacing * 3) {
+                   const s = 14;
+                   ctx.beginPath();
+                   ctx.moveTo(x, y - s); ctx.lineTo(x + s, y);
+                   ctx.lineTo(x, y + s); ctx.lineTo(x - s, y);
+                   ctx.closePath(); ctx.stroke();
+                   ctx.fillStyle = 'rgba(212, 175, 55, 0.35)';
+                   ctx.beginPath(); ctx.arc(x, y, 1.5, 0, Math.PI * 2); ctx.fill();
+               }
+           }
+
+           ctx.strokeStyle = 'rgba(212, 175, 55, 0.06)';
+           ctx.lineWidth = 1;
+           for (let i = -canvas.height; i < canvas.width + canvas.height; i += spacing * 4) {
+               ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i + canvas.height, canvas.height); ctx.stroke();
+           }
+       }
+
+       window.addEventListener('resize', resize);
+       resize();
+</script>
+</body>
+</html>
+
